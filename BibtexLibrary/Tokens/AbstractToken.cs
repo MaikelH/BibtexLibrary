@@ -1,8 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace BibtexLibrary.Tokens
 {
@@ -21,18 +17,18 @@ namespace BibtexLibrary.Tokens
             }
         }
 
-        protected string Value;
-        private int _position;
+        protected readonly string Value;
+        private readonly int _position;
 
         public AbstractToken(String value)
         {
             Value = value;
         }
 
-        public AbstractToken(String value, int Position)
+        public AbstractToken(String value, int position)
         {
             Value = value;
-            _position = Position;
+            _position = position;
         }
 
         public String GetValue()
@@ -49,7 +45,7 @@ namespace BibtexLibrary.Tokens
         {
             if (ReferenceEquals(null, obj)) return false;
             if (ReferenceEquals(this, obj)) return true;
-            if (obj.GetType() != this.GetType()) return false;
+            if (obj.GetType() != GetType()) return false;
             return Equals((AbstractToken) obj);
         }
     }

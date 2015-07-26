@@ -8,14 +8,15 @@ namespace BibtexLibrary.Tokens
 {
     public class ClosingBrace : AbstractToken
     {
-        public ClosingBrace(String Value) : base(Value)
+        public ClosingBrace(String Value)
+            : base(Value.Trim())
         {
-            this.Value = Value.Trim();
         }
 
-        public ClosingBrace(String Value, int Postion) : base(Value, Postion)
+        public ClosingBrace(String Value, int Postion)
+            : base(Value.Trim(), Postion)
         {
-            this.Value = Value.Trim();
+
         }
     }
 }

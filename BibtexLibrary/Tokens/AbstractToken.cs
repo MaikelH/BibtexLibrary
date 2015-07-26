@@ -8,6 +8,19 @@ namespace BibtexLibrary.Tokens
 {
     public class AbstractToken
     {
+        protected bool Equals(AbstractToken other)
+        {
+            return string.Equals(Value, other.Value) && _position == other._position;
+        }
+
+        public override int GetHashCode()
+        {
+            unchecked
+            {
+                return ((Value != null ? Value.GetHashCode() : 0)*397) ^ _position;
+            }
+        }
+
         protected string Value;
         private int _position;
 
@@ -34,20 +47,10 @@ namespace BibtexLibrary.Tokens
 
         public override bool Equals(object obj)
         {
-            // If parameter is null return false.
-            if (obj == null)
-            {
-                return false;
-            }
-
-            if (obj.GetType() != GetType())
-            {
-                return false;
-            }
-
-            AbstractToken token = (AbstractToken) obj;
-
-            return (token.GetValue() == GetValue()) && (token.Position == Position);
+            if (ReferenceEquals(null, obj)) return false;
+            if (ReferenceEquals(this, obj)) return true;
+            if (obj.GetType() != this.GetType()) return false;
+            return Equals((AbstractToken) obj);
         }
     }
 }

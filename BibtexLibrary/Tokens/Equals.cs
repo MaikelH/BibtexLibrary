@@ -8,11 +8,11 @@ namespace BibtexLibrary.Tokens
 {
     public class Equals : AbstractToken
     {
-        public Equals(string value) : base(value.Trim())
+        public Equals(string value) : base(value)
         {
         }
 
-        public Equals(string value, int Position) : base(value.Trim(), Position)
+        public Equals(string value, int position) : base(value, position)
         {
         }
     }

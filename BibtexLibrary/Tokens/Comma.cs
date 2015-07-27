@@ -12,7 +12,7 @@ namespace BibtexLibrary.Tokens
         {
         }
 
-        public Comma(string value, int Position) : base(value, Position)
+        public Comma(string value, int position) : base(value, position)
         {
         }
     }

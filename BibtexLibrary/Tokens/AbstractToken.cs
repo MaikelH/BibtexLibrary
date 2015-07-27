@@ -4,6 +4,18 @@ namespace BibtexLibrary.Tokens
 {
     public class AbstractToken
     {
+        public AbstractToken(String value)
+        {
+            Value = value;
+        }
+
+        public AbstractToken(String value, int position)
+        {
+            RawValue = value;
+            Value = value.Trim();
+            _position = position;
+        }
+
         protected bool Equals(AbstractToken other)
         {
             return string.Equals(Value, other.Value) && _position == other._position;
@@ -20,17 +32,6 @@ namespace BibtexLibrary.Tokens
         protected readonly string Value;
         private readonly int _position;
 
-        public AbstractToken(String value)
-        {
-            Value = value;
-        }
-
-        public AbstractToken(String value, int position)
-        {
-            Value = value;
-            _position = position;
-        }
-
         public String GetValue()
         {
             return Value;
@@ -40,6 +41,8 @@ namespace BibtexLibrary.Tokens
         {
             get { return _position; }
         }
+
+        public string RawValue { get; private set; }
 
         public override bool Equals(object obj)
         {

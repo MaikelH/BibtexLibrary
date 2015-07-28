@@ -78,10 +78,9 @@ namespace BibtexLibrary.Parser
         {
             AbstractToken token = tokenizer.NextToken();
 
-            if (token.GetType() == typeof (Text))
+            if (token.GetType() == typeof(Comma) || token.GetType() == typeof(Text))
             {
-                Text text = (Text) token;
-                return text.GetValue();
+                return token.GetValue();
             }
 
             throw new ParseException("Expected type Text but found: " + token.GetType());
@@ -126,7 +125,7 @@ namespace BibtexLibrary.Parser
                 return;
             }
 
-            throw new ParseException("Expected type OpeningBrace but found: " + token.GetType());
+            throw new ParseException("Expected type Comma but found: " + token.GetType());
         }
 
         private ICollection<Tag> Tags(Tokenizer.Tokenizer tokenizer)

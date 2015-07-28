@@ -109,7 +109,7 @@ namespace BibtexImporter.Tests
                                                                             }");
             List<AbstractToken> tokens = tokenizer.GetAllTokens().ToList();
 
-            Assert.AreEqual(9, tokens.Count());
+            Assert.AreEqual(15, tokens.Count());
             Assert.AreEqual(new At("@"), tokens[0]);
             Assert.AreEqual(new Text("book", 1), tokens[1]);
             Assert.AreEqual(new OpeningBrace("{", 5), tokens[2]);
@@ -119,10 +119,14 @@ namespace BibtexImporter.Tests
             Assert.AreEqual(new Text("author", 18), tokens[5]);
             Assert.AreEqual(new Equals("=", 107), tokens[6]);
             Assert.AreEqual(new OpeningBrace(" {", 108), tokens[7]);
-            Assert.AreEqual(new Text("Günther, C.W. and Van Der Aalst, W.M.P.", 110), tokens[8]);
-            Assert.AreEqual(new ClosingBrace("}", 124), tokens[9]);
+            Assert.AreEqual(new Text("Günther", 110), tokens[8]);
+            Assert.AreEqual(new Comma(",", 117), tokens[9]);
+            Assert.AreEqual(new Text("C.W. and Van Der Aalst", 118), tokens[10]);
+            Assert.AreEqual(new Comma(",", 141), tokens[11]);
+            Assert.AreEqual(new Text("W.M.P.", 142), tokens[12]);
+            Assert.AreEqual(new ClosingBrace("}", 149), tokens[13]);
 
-            Assert.AreEqual(new ClosingBrace("}", 252), tokens[16]);
+            Assert.AreEqual(new ClosingBrace("}", 150), tokens[14]);
         }
 
         [Test]

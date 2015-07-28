@@ -79,7 +79,26 @@ namespace BibtexImporter.Tests
             Assert.AreEqual("Multivariate statistics 2", file.Entries.ToList()[1].Tags.ToList()[1].Value);
         }
 
+
         [Test]
+        public void CommaInTagValueParseTest()
+        {
+            Tokenizer tokenizer = new Tokenizer(new ExpressionDictionary(), @"@book{ aaker:1912,
+                                                                                author = {Günther, C.W. and Van Der Aalst, W.M.P.}
+                                                                            }");
+            
+            BibtexParser parser = new BibtexParser(tokenizer);
+            BibtexFile file = parser.Parse();
+
+            Assert.AreEqual(1, file.Entries.Count);
+            Assert.AreEqual("aaker:1912", file.Entries.First().Key);
+            Assert.AreEqual("book", file.Entries.First().Type);
+            Assert.AreEqual(1, file.Entries.First().Tags.Count);
+            Assert.AreEqual("author", file.Entries.First().Tags.First().Key);
+            Assert.AreEqual("Günther, C.W. and Van Der Aalst, W.M.P.", file.Entries.First().Tags.First().Value);
+        }
+
+
         public void FuzzyMiningTestFileTest()
         {
             using (StreamReader reader = new StreamReader("Test Files\\Fuzzy Mining.bib"))

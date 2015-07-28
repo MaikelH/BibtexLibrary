@@ -107,7 +107,7 @@ namespace BibtexLibrary.Parser
                 return;
             }
 
-            throw new ParseException("Expected type OpeningBrace but found: " + token.GetType());
+            throw new ParseException("Expected type ClosingBrace but found: " + token.GetType());
         }
 
         private void Comma(Tokenizer.Tokenizer tokenizer, Boolean optional = false)
@@ -138,7 +138,14 @@ namespace BibtexLibrary.Parser
                 tag.Key = Text(tokenizer);
                 Equals(tokenizer);
                 OpeningBrace(tokenizer);
-                tag.Value = Text(tokenizer);
+
+                List<AbstractToken> tokens = new List<AbstractToken>();
+                while (tokenizer.Peek().GetType() != typeof (ClosingBrace))
+                {
+                    tokens.Add(tokenizer.NextToken());
+                }
+
+                tag.Value = tokens.Aggregate("", (s, token) => s + token.RawValue);
                 ClosingBrace(tokenizer);
                 Comma(tokenizer, true);
 

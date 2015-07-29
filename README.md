@@ -21,6 +21,6 @@ key				= 	text
 comma 			=	","
 openingbrace	=	"{"
 closingbrace	=	"}"
-text			= 	{ ([A-z0-9:.\s-] | Comma) }
+text			= 	{ ([A-z0-9:.\s-()] | Comma) }
 junk			=   .*
 ```

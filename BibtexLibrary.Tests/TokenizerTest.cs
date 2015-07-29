@@ -176,5 +176,29 @@ namespace BibtexImporter.Tests
 
             Assert.AreEqual(new ClosingBrace("}", 122), tokens[10]);
         }
+
+        [Test]
+        public void TestBracesInTagValue()
+        {
+            Tokenizer tokenizer = new Tokenizer(new ExpressionDictionary(), @"@book{ aaker:1912,
+                                                                                author = { tes(;)est }
+                                                                            }");
+            List<AbstractToken> tokens = tokenizer.GetAllTokens().ToList();
+
+            Assert.AreEqual(11, tokens.Count());
+            Assert.AreEqual(new At("@"), tokens[0]);
+            Assert.AreEqual(new Text("book", 1), tokens[1]);
+            Assert.AreEqual(new OpeningBrace("{", 5), tokens[2]);
+            Assert.AreEqual(new Text("aaker:1912", 6), tokens[3]);
+            Assert.AreEqual(new Comma(",", 17), tokens[4]);
+
+            Assert.AreEqual(new Text("author", 18), tokens[5]);
+            Assert.AreEqual(new Equals("=", 107), tokens[6]);
+            Assert.AreEqual(new OpeningBrace(" {", 108), tokens[7]);
+            Assert.AreEqual(new Text("tes(;)est", 110), tokens[8]);
+            Assert.AreEqual(new ClosingBrace("}", 121), tokens[9]);
+
+            Assert.AreEqual(new ClosingBrace("}", 122), tokens[10]);
+        }
     }
 }

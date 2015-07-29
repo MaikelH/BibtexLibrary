@@ -48,6 +48,23 @@ namespace BibtexImporter.Tests
         }
 
         [Test]
+        public void BracesInValueTest()
+        {
+            Tokenizer tokenizer = new Tokenizer(new ExpressionDictionary(), @"@book{ aaker:1912,
+                                                                                author = {David A. ()ker},
+                                                                            }");
+            BibtexParser parser = new BibtexParser(tokenizer);
+            BibtexFile file = parser.Parse();
+
+            Assert.AreEqual(1, file.Entries.Count);
+            Assert.AreEqual("aaker:1912", file.Entries.First().Key);
+            Assert.AreEqual("book", file.Entries.First().Type);
+            Assert.AreEqual(1, file.Entries.First().Tags.Count);
+            Assert.AreEqual("author", file.Entries.First().Tags.First().Key);
+            Assert.AreEqual("David A. ()ker", file.Entries.First().Tags.First().Value);
+        }
+
+        [Test]
         public void MultipleEntriesTest()
         {
             Tokenizer tokenizer = new Tokenizer(new ExpressionDictionary(), @"@book{ aaker:1912,
@@ -98,7 +115,7 @@ namespace BibtexImporter.Tests
             Assert.AreEqual("Günther, C.W. and Van Der Aalst, W.M.P.", file.Entries.First().Tags.First().Value);
         }
 
-
+        [Test]
         public void FuzzyMiningTestFileTest()
         {
             using (StreamReader reader = new StreamReader("Test Files\\Fuzzy Mining.bib"))

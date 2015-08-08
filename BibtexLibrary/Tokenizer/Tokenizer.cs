@@ -31,7 +31,6 @@ namespace BibtexLibrary.Tokenizer
                 {
                     continue;
                 }
-
                 _counter += match.Value.Length;
 
                 if (!pair.Key.IsSubclassOf(typeof (AbstractToken)))
@@ -53,6 +52,7 @@ namespace BibtexLibrary.Tokenizer
             // Loop through all tokens and check if they match the input string
             foreach (KeyValuePair<Type, string> pair in _dictionary)
             {
+                var test = _input.Length;
                 // TODO: See if substring does not impose a to harsh performance drop
                 Match match = Regex.Match(_input.Substring(_counter), pair.Value);
 

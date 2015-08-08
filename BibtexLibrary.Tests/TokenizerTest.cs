@@ -16,7 +16,7 @@ namespace BibtexImporter.Tests
         {
             Tokenizer tokenizer = new Tokenizer(new ExpressionDictionary(), "test");
 
-            Assert.AreEqual(new BibtexLibrary.Tokens.Text("test"),tokenizer.NextToken());
+            Assert.AreEqual(new Text("test"),tokenizer.NextToken());
         }
 
         [Test]
@@ -223,6 +223,38 @@ namespace BibtexImporter.Tests
             Assert.AreEqual(new ClosingBrace("}", 122), tokens[9]);
 
             Assert.AreEqual(new ClosingBrace("}", 123), tokens[10]);
+        }
+
+        [Test]
+        public void TestDoubleQuoteDelimiterTags()
+        {
+            Tokenizer tokenizer = new Tokenizer(new ExpressionDictionary(), " \"");
+            List<AbstractToken> tokens = tokenizer.GetAllTokens().ToList();
+
+            Assert.AreEqual(1, tokens.Count());
+            Assert.IsTrue(tokens[0].GetType() == typeof(ValueQuote));
+        }
+
+        [Test]
+        public void TestTokenizerFullItemWithQuote()
+        {
+            Tokenizer tokenizer = new Tokenizer(new ExpressionDictionary(), @"@book{ aaker:1912,
+                                                                                author = ""David A. Aaker""
+                                                                            }");
+            List<AbstractToken> tokens = tokenizer.GetAllTokens().ToList();
+
+            Assert.AreEqual(11, tokens.Count());
+            Assert.AreEqual(new At("@"), tokens[0]);
+            Assert.AreEqual(new Text("book", 1), tokens[1]);
+            Assert.AreEqual(new OpeningBrace("{", 5), tokens[2]);
+            Assert.AreEqual(new Text("aaker:1912", 6), tokens[3]);
+            Assert.AreEqual(new Comma(",", 17), tokens[4]);
+            Assert.AreEqual(new Text("author", 18), tokens[5]);
+            Assert.AreEqual(new Equals("=", 107), tokens[6]);
+            Assert.IsTrue(tokens[7].GetType() == typeof(ValueQuote));
+            Assert.AreEqual(new Text("David A. Aaker", 110), tokens[8]);
+            Assert.IsTrue(tokens[9].GetType() == typeof(ValueQuote));
+            Assert.AreEqual(new ClosingBrace("}", 125), tokens[10]);
         }
     }
 }

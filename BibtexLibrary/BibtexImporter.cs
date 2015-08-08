@@ -1,4 +1,5 @@
-﻿using System.IO;
+﻿using System;
+using System.IO;
 using BibtexLibrary.Parser;
 using BibtexLibrary.Tokenizer;
 
@@ -15,7 +16,7 @@ namespace BibtexLibrary
 
         public static BibtexFile FromStream(StreamReader reader)
         {
-            return new BibtexFile();
+            throw new NotImplementedException();
         }
     }
 }

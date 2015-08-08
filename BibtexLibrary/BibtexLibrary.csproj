@@ -61,6 +61,7 @@
     <Compile Include="Tokens\OpeningBrace.cs" />
     <Compile Include="Tokens\Preamble.cs" />
     <Compile Include="Tokens\Text.cs" />
+    <Compile Include="Tokens\ValueQuote.cs" />
   </ItemGroup>
   <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

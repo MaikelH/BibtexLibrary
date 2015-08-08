@@ -134,20 +134,22 @@ namespace BibtexLibrary.Parser
 
             while (tokenizer.Peek().GetType() != typeof (ClosingBrace))
             {
-                Tag tag = new Tag();
-                tag.Key = Text(tokenizer);
+                Tag tag = new Tag {Key = Text(tokenizer)};
                 Equals(tokenizer);
-                OpeningBrace(tokenizer);
+                ValueStart(tokenizer);
 
                 List<AbstractToken> tokens = new List<AbstractToken>();
-                while (tokenizer.Peek().GetType() != typeof (ClosingBrace))
+                Type nextTokenType = tokenizer.Peek().GetType();
+                while (nextTokenType != typeof(ClosingBrace) && nextTokenType != typeof(ValueQuote))
                 {
                     tokens.Add(tokenizer.NextToken());
+                    nextTokenType = tokenizer.Peek().GetType();
                 }
 
                 tag.Value = tokens.Aggregate("", (s, token) => s + token.RawValue);
-                ClosingBrace(tokenizer);
+                ValueStop(tokenizer);
                 Comma(tokenizer, true);
+                NewLine(tokenizer, true);
 
                 tags.Add(tag);
             }
@@ -165,6 +167,48 @@ namespace BibtexLibrary.Parser
             }
 
             throw new ParseException("Expected type Equals but found: " + token.GetType());
+        }
+
+        private void ValueStart(Tokenizer.Tokenizer tokenizer)
+        {
+            AbstractToken token = tokenizer.NextToken();
+
+            if (token.GetType() == typeof(OpeningBrace) || token.GetType() == typeof(ValueQuote))
+            {
+                return;
+            }
+
+            throw new ParseException("Expected type Openingbrace or ValueQuote but found: " + token.GetType());    
+        }
+
+        private void ValueStop(Tokenizer.Tokenizer tokenizer)
+        {
+            AbstractToken token = tokenizer.NextToken();
+
+            if (token.GetType() == typeof(ClosingBrace) || token.GetType() == typeof(ValueQuote))
+            {
+                return;
+            }
+
+            throw new ParseException("Expected type ClosingBrace or ValueQuote but found: " + token.GetType());
+        }
+
+        private void NewLine(Tokenizer.Tokenizer tokenizer, Boolean optional = false)
+        {
+            AbstractToken token = tokenizer.Peek();
+
+            if (token.GetType() == typeof(NewLine))
+            {
+                tokenizer.NextToken();
+                return;
+            }
+
+            if (optional)
+            {
+                return;
+            }
+
+            throw new ParseException("Expected type Comma but found: " + token.GetType());
         }
     }
 }

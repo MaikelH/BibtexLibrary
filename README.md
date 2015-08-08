@@ -41,15 +41,19 @@ The grammar that is used by the parser is as follows. It is not in perfect EBNF,
 ```
 BibtexFile 		= 	{ ([junk] @ entry) }
 entry 			=	type openingbrace key comma {(tag[comma])} closingbrace 
-tag				= 	text "=" openingbrace text closingbrace
+tag				= 	text "=" valuestart text valuestop
 
 
 type			=	text
 key				= 	text
 
+valuestart      =   openingbrace | valuequote
+valuestop       =   closingbrace | valuequote
+
 comma 			=	","
 openingbrace	=	"{"
 closingbrace	=	"}"
+valuequote      =   """
 text			= 	{ ([A-z0-9:.\s-()/\?&\\] | Comma) }
 junk			=   .*
 ```

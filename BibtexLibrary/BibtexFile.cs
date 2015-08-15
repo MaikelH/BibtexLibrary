@@ -5,7 +5,13 @@ namespace BibtexLibrary
     public class BibtexFile
     {
         private ICollection<BibtexEntry> _entries = new List<BibtexEntry>();
-        public Dictionary<string, string> StringDefinitions { get; set; }
+        private Dictionary<string, string> _stringDefinitions = new Dictionary<string, string>();
+
+        public Dictionary<string, string> StringDefinitions
+        {
+            get { return _stringDefinitions; }
+            set { _stringDefinitions = value; }
+        }
 
         public ICollection<string> Preamble { get; set; }
 

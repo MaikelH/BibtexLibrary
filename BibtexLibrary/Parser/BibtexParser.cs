@@ -31,13 +31,18 @@ namespace BibtexLibrary.Parser
 
             foreach (Entry entry in parseFile.Entries)
             {
-                BibtexEntry bibtexEntry = new BibtexEntry();
-                bibtexEntry.Key = entry.Key;
-                bibtexEntry.Type = entry.Type;
+                if (entry.Type == "String")
+                {
+                    bibtex.StringDefinitions.Add(entry.Tags.First().Key, entry.Tags.First().Value);
+                }
+                else
+                {
+                    BibtexEntry bibtexEntry = new BibtexEntry { Key = entry.Key, Type = entry.Type };
 
-                entry.Tags.ToList().ForEach(x => bibtexEntry.Tags.Add(x.Key, x.Value));
+                    entry.Tags.ToList().ForEach(x => bibtexEntry.Tags.Add(x.Key, x.Value));
 
-                bibtex.Entries.Add(bibtexEntry);
+                    bibtex.Entries.Add(bibtexEntry);    
+                }
             }
 
             return bibtex;

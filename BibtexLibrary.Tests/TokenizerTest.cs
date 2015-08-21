@@ -256,5 +256,29 @@ namespace BibtexImporter.Tests
             Assert.IsTrue(tokens[9].GetType() == typeof(ValueQuote));
             Assert.AreEqual(new ClosingBrace("}", 125), tokens[10]);
         }
+
+        [Test]
+        public void TestStringValue()
+        {
+            Tokenizer tokenizer = new Tokenizer(new ExpressionDictionary(), @"
+                                                                            @String{pub-ACM                 = ""ACM Press""}
+                                                                            @book{ aaker:1912,
+                                                                                author = { tes(;)est }
+                                                                            }");
+            List<AbstractToken> tokens = tokenizer.GetAllTokens().ToList();
+
+            Assert.AreEqual(20, tokens.Count());
+            Assert.IsTrue(tokens[0].GetType() == typeof(At));
+            Assert.IsTrue(tokens[1].GetType() == typeof(Text));
+            Assert.IsTrue(tokens[2].GetType() == typeof(OpeningBrace));
+            Assert.IsTrue(tokens[3].GetType() == typeof(Text));
+            Assert.IsTrue(tokens[3].GetValue() == "pub-ACM");
+            Assert.IsTrue(tokens[4].GetType() == typeof(Equals));
+            Assert.IsTrue(tokens[5].GetType() == typeof(ValueQuote));
+            Assert.IsTrue(tokens[6].GetType() == typeof(Text));
+            Assert.IsTrue(tokens[6].GetValue() == "ACM Press");
+            Assert.IsTrue(tokens[7].GetType() == typeof(ValueQuote));
+            Assert.IsTrue(tokens[8].GetType() == typeof(ClosingBrace));
+        }
     }
 }

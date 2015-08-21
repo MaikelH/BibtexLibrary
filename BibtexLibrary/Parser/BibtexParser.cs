@@ -31,13 +31,18 @@ namespace BibtexLibrary.Parser
 
             foreach (Entry entry in parseFile.Entries)
             {
-                BibtexEntry bibtexEntry = new BibtexEntry();
-                bibtexEntry.Key = entry.Key;
-                bibtexEntry.Type = entry.Type;
+                if (entry.Type == "String")
+                {
+                    bibtex.StringDefinitions.Add(entry.Tags.First().Key, entry.Tags.First().Value);
+                }
+                else
+                {
+                    BibtexEntry bibtexEntry = new BibtexEntry { Key = entry.Key, Type = entry.Type };
 
-                entry.Tags.ToList().ForEach(x => bibtexEntry.Tags.Add(x.Key, x.Value));
+                    entry.Tags.ToList().ForEach(x => bibtexEntry.Tags.Add(x.Key, x.Value));
 
-                bibtex.Entries.Add(bibtexEntry);
+                    bibtex.Entries.Add(bibtexEntry);    
+                }
             }
 
             return bibtex;
@@ -66,8 +71,13 @@ namespace BibtexLibrary.Parser
 
             entry.Type = Text(tokenizer);
             OpeningBrace(tokenizer);
-            entry.Key = Text(tokenizer);
-            Comma(tokenizer);
+
+            if (entry.Type != "String")
+            {
+                entry.Key = Text(tokenizer);
+                Comma(tokenizer);
+            }
+
             entry.Tags = Tags(tokenizer);
             ClosingBrace(tokenizer);
 
@@ -128,26 +138,83 @@ namespace BibtexLibrary.Parser
             throw new ParseException("Expected type Comma but found: " + token.GetType());
         }
 
+        /// <summary>
+        /// Retrieves the tag values from the input. 
+        /// </summary>
+        /// <param name="tokenizer"></param>
+        /// <returns></returns>
+        /// 
         private ICollection<Tag> Tags(Tokenizer.Tokenizer tokenizer)
         {
+            // This function needs some refactoring.
             List<Tag> tags = new List<Tag>();
 
             while (tokenizer.Peek().GetType() != typeof (ClosingBrace))
             {
                 Tag tag = new Tag {Key = Text(tokenizer)};
                 Equals(tokenizer);
-                ValueStart(tokenizer);
+                AbstractToken startToken = ValueStart(tokenizer);
 
                 List<AbstractToken> tokens = new List<AbstractToken>();
-                Type nextTokenType = tokenizer.Peek().GetType();
-                while (nextTokenType != typeof(ClosingBrace) && nextTokenType != typeof(ValueQuote))
+
+                bool keepProcessing = true;
+                int balance = 1;
+
+                while (keepProcessing)
                 {
-                    tokens.Add(tokenizer.NextToken());
-                    nextTokenType = tokenizer.Peek().GetType();
+                    Type nextTokenType = tokenizer.Peek().GetType();
+
+                    if (nextTokenType == typeof (OpeningBrace))
+                    {
+                        balance++;
+                    }
+
+                    if ( (startToken.GetType() == typeof(OpeningBrace) &&  nextTokenType == typeof (ClosingBrace)))
+                    {
+                        if (balance == 1)
+                        {
+                            keepProcessing = false;
+                            ValueStop(tokenizer);    
+                        }
+                    }
+
+                    if (nextTokenType == typeof(ClosingBrace))
+                    {
+                        if (balance > 1)
+                        {
+                            balance--;
+                        }
+                    }
+
+                    // Double quotes are much more difficult to handle then the braces. The problem is that there is no distinction between 
+                    // start and stop quotes. This means we need to look forward to see what is behind the quote to see if it is a quote @ the end
+                    // or the start of a new quote.
+                    if (nextTokenType == typeof (ValueQuote))
+                    {
+                        AbstractToken quote = tokenizer.NextToken();
+
+                        Type nextType = tokenizer.Peek().GetType();
+                        if ((nextType == typeof(ClosingBrace) && balance == 1) ||
+                             nextType == typeof(Comma))
+                        {
+                            // end of line found.
+                            keepProcessing = false;
+                        }
+                        else
+                        {
+                            tokens.Add(quote);
+                            continue;
+                        }
+                    }
+
+                    if (keepProcessing)
+                    {
+                        tokens.Add(tokenizer.NextToken());
+                    }
                 }
 
                 tag.Value = tokens.Aggregate("", (s, token) => s + token.RawValue);
-                ValueStop(tokenizer);
+                
                 Comma(tokenizer, true);
                 NewLine(tokenizer, true);
 
@@ -169,25 +236,25 @@ namespace BibtexLibrary.Parser
             throw new ParseException("Expected type Equals but found: " + token.GetType());
         }
 
-        private void ValueStart(Tokenizer.Tokenizer tokenizer)
+        private AbstractToken ValueStart(Tokenizer.Tokenizer tokenizer)
         {
             AbstractToken token = tokenizer.NextToken();
 
             if (token.GetType() == typeof(OpeningBrace) || token.GetType() == typeof(ValueQuote))
             {
-                return;
+                return token;
             }
 
             throw new ParseException("Expected type Openingbrace or ValueQuote but found: " + token.GetType());    
         }
 
-        private void ValueStop(Tokenizer.Tokenizer tokenizer)
+        private AbstractToken ValueStop(Tokenizer.Tokenizer tokenizer)
         {
             AbstractToken token = tokenizer.NextToken();
 
             if (token.GetType() == typeof(ClosingBrace) || token.GetType() == typeof(ValueQuote))
             {
-                return;
+                return token;
             }
 
             throw new ParseException("Expected type ClosingBrace or ValueQuote but found: " + token.GetType());

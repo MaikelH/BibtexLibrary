@@ -144,5 +144,58 @@ namespace BibtexImporter.Tests
             Assert.AreEqual("author", file.Entries.First().Tags.First().Key);
             Assert.AreEqual("David A. Aaker", file.Entries.First().Tags.First().Value);
         }
+
+        [Test]
+        public void ParseBracesInQuotedStringTest()
+        {
+            Tokenizer tokenizer = new Tokenizer(new ExpressionDictionary(), @"@book{ aaker:1912,
+                                                                                author = ""David {A.} Aaker""
+                                                                              }");
+            BibtexParser parser = new BibtexParser(tokenizer);
+            BibtexFile file = parser.Parse();
+
+            Assert.AreEqual(1, file.Entries.Count);
+            Assert.AreEqual("aaker:1912", file.Entries.First().Key);
+            Assert.AreEqual("book", file.Entries.First().Type);
+            Assert.AreEqual(1, file.Entries.First().Tags.Count);
+            Assert.AreEqual("author", file.Entries.First().Tags.First().Key);
+            Assert.AreEqual("David {A.} Aaker", file.Entries.First().Tags.First().Value);
+        }
+
+        [Test]
+        public void ParseBracesInBracesStringTest()
+        {
+            Tokenizer tokenizer = new Tokenizer(new ExpressionDictionary(), @"@book{ aaker:1912,
+                                                                                author = {David {A.} Aaker}
+                                                                              }");
+            BibtexParser parser = new BibtexParser(tokenizer);
+            BibtexFile file = parser.Parse();
+
+            Assert.AreEqual(1, file.Entries.Count);
+            Assert.AreEqual("aaker:1912", file.Entries.First().Key);
+            Assert.AreEqual("book", file.Entries.First().Type);
+            Assert.AreEqual(1, file.Entries.First().Tags.Count);
+            Assert.AreEqual("author", file.Entries.First().Tags.First().Key);
+            Assert.AreEqual("David {A.} Aaker", file.Entries.First().Tags.First().Value);
+        }
+
+        [Test]
+        public void ParseStringDefinitionsTest()
+        {
+            Tokenizer tokenizer = new Tokenizer(new ExpressionDictionary(), @"
+                                                                            @String{pub-ACM = ""ACM Press""}
+                                                                            @book{ aaker:1912,
+                                                                                author = { tes(;)est }
+                                                                            }");
+            BibtexParser parser = new BibtexParser(tokenizer);
+            BibtexFile file = parser.Parse();
+
+            Assert.IsTrue(file.StringDefinitions.ContainsKey("pub-ACM"));
+            Assert.AreEqual("ACM Press", file.StringDefinitions["pub-ACM"]);
+
+            Assert.AreEqual(1, file.Entries.Count);
+            Assert.AreEqual("aaker:1912", file.Entries.First().Key);
+            Assert.AreEqual("book", file.Entries.First().Type);
+        }
     }
 }

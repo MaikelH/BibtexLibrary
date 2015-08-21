@@ -1,0 +1,12 @@
+version: 1.2.{build}
+branches:
+  only:
+  - release
+configuration: Release
+init:
+- git config --global core.autocrlf true
+before_build:
+- nuget restore
+build:
+  publish_nuget: true
+  verbosity: minimal

@@ -71,8 +71,13 @@ namespace BibtexLibrary.Parser
 
             entry.Type = Text(tokenizer);
             OpeningBrace(tokenizer);
-            entry.Key = Text(tokenizer);
-            Comma(tokenizer);
+
+            if (entry.Type != "String")
+            {
+                entry.Key = Text(tokenizer);
+                Comma(tokenizer);
+            }
+
             entry.Tags = Tags(tokenizer);
             ClosingBrace(tokenizer);
 

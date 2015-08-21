@@ -58,5 +58,33 @@ namespace BibtexImporter.Tests
             Assert.AreEqual("1", tags["number"]);
             Assert.AreEqual("10--13", tags["pages"]);
         }
+
+        [Test]
+        public void TestIssue1()
+        {
+            BibtexFile file = BibtexLibrary.BibtexImporter.FromString(@"@Article{ChgfgA,
+                                                                                    author = ""Author 1, Author 2"",
+                                                                                    title = ""this text should be in double quotes {""}bio-tech{""}"",
+                                                                                    journal =""ABC Journal."",
+                                                                                    year =""2014"",
+                                                                                    volume =""5"",
+                                                                                    issue =""23"",
+                                                                                    pages =""46-49"",
+                                                                                    publisher =""The American Publisher"",
+                                                                                    doi ="""",
+                                                                                    url ="""",
+                                                                                    abstract =""This abstract has comma{,} and double quotes syntax {""}bio-tech{""} how can this be fixed""}");
+            
+            Assert.AreEqual(1, file.Entries.Count);
+
+            Assert.AreEqual(file.Entries.ToList()[0].Key, "ChgfgA");
+            Assert.AreEqual(file.Entries.ToList()[0].Type, "Article");
+
+            Dictionary<string, string> tags = file.Entries.ToList()[0].Tags;
+            Assert.AreEqual(11, tags.Count);
+            Assert.AreEqual("Author 1, Author 2", tags["author"]);
+            Assert.AreEqual("this text should be in double quotes {\"}bio-tech{\"}", tags["title"]);
+            Assert.AreEqual("This abstract has comma{,} and double quotes syntax {\"}bio-tech{\"} how can this be fixed", tags["abstract"]);
+        }
     }
 }

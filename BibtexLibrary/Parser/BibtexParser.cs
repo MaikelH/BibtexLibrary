@@ -133,8 +133,15 @@ namespace BibtexLibrary.Parser
             throw new ParseException("Expected type Comma but found: " + token.GetType());
         }
 
+        /// <summary>
+        /// Retrieves the tag values from the input. 
+        /// </summary>
+        /// <param name="tokenizer"></param>
+        /// <returns></returns>
+        /// 
         private ICollection<Tag> Tags(Tokenizer.Tokenizer tokenizer)
         {
+            // This function needs some refactoring.
             List<Tag> tags = new List<Tag>();
 
             while (tokenizer.Peek().GetType() != typeof (ClosingBrace))
@@ -144,15 +151,13 @@ namespace BibtexLibrary.Parser
                 AbstractToken startToken = ValueStart(tokenizer);
 
                 List<AbstractToken> tokens = new List<AbstractToken>();
-                Type nextTokenType = tokenizer.Peek().GetType();
 
                 bool keepProcessing = true;
                 int balance = 1;
 
                 while (keepProcessing)
                 {
-                    tokens.Add(tokenizer.NextToken());
-                    nextTokenType = tokenizer.Peek().GetType();
+                    Type nextTokenType = tokenizer.Peek().GetType();
 
                     if (nextTokenType == typeof (OpeningBrace))
                     {
@@ -161,26 +166,49 @@ namespace BibtexLibrary.Parser
 
                     if ( (startToken.GetType() == typeof(OpeningBrace) &&  nextTokenType == typeof (ClosingBrace)))
                     {
-                        if (balance > 1)
+                        if (balance == 1)
                         {
-                            balance--;
-
-                        }
-                        else
-                        {
-                            keepProcessing = false;    
+                            keepProcessing = false;
+                            ValueStop(tokenizer);    
                         }
                     }
 
+                    if (nextTokenType == typeof(ClosingBrace))
+                    {
+                        if (balance > 1)
+                        {
+                            balance--;
+                        }
+                    }
+
+                    // Double quotes are much more difficult to handle then the braces. The problem is that there is no distinction between 
+                    // start and stop quotes. This means we need to look forward to see what is behind the quote to see if it is a quote @ the end
+                    // or the start of a new quote.
                     if (nextTokenType == typeof (ValueQuote))
                     {
-                        keepProcessing = false;
+                        AbstractToken quote = tokenizer.NextToken();
+
+                        Type nextType = tokenizer.Peek().GetType();
+                        if ((nextType == typeof(ClosingBrace) && balance == 1) ||
+                             nextType == typeof(Comma))
+                        {
+                            // end of line found.
+                            keepProcessing = false;
+                        }
+                        else
+                        {
+                            tokens.Add(quote);
+                            continue;
+                        }
+                    }
+
+                    if (keepProcessing)
+                    {
+                        tokens.Add(tokenizer.NextToken());
                     }
                 }
 
                 tag.Value = tokens.Aggregate("", (s, token) => s + token.RawValue);
-                
-                ValueStop(tokenizer);
                 
                 Comma(tokenizer, true);
                 NewLine(tokenizer, true);

@@ -147,13 +147,32 @@ namespace BibtexLibrary.Parser
                 Type nextTokenType = tokenizer.Peek().GetType();
 
                 bool keepProcessing = true;
+                int balance = 1;
 
                 while (keepProcessing)
                 {
                     tokens.Add(tokenizer.NextToken());
                     nextTokenType = tokenizer.Peek().GetType();
 
-                    if ( (startToken.GetType() == typeof(OpeningBrace) &&  nextTokenType == typeof (ClosingBrace)) || nextTokenType == typeof (ValueQuote))
+                    if (nextTokenType == typeof (OpeningBrace))
+                    {
+                        balance++;
+                    }
+
+                    if ( (startToken.GetType() == typeof(OpeningBrace) &&  nextTokenType == typeof (ClosingBrace)))
+                    {
+                        if (balance > 1)
+                        {
+                            balance--;
+
+                        }
+                        else
+                        {
+                            keepProcessing = false;    
+                        }
+                    }
+
+                    if (nextTokenType == typeof (ValueQuote))
                     {
                         keepProcessing = false;
                     }

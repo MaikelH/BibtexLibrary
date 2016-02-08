@@ -96,6 +96,16 @@ namespace BibtexLibrary.Tokenizer
             get { return (_counter >= (_input.Length)); }
         }
 
+        /// <summary>
+        /// Returns the previous n characters. 
+        /// </summary>
+        /// <param name="amount"></param>
+        /// <returns>Previous characters in the tokenizer</returns>
+        public string GetPreviousCharacters(int n)
+        {
+            return _input.Substring(_counter - n, n);
+        }
+
 
     }
 }

@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using BibtexLibrary.Tokenizer;
@@ -327,6 +328,25 @@ namespace BibtexImporter.Tests
             Assert.AreEqual(new ClosingBrace("}", 119), tokens[9]);
 
             Assert.AreEqual(new ClosingBrace("}", 120), tokens[10]);
+        }
+
+        [Test]
+        public void TestPrevious()
+        {
+            Tokenizer tokenizer = new Tokenizer(new ExpressionDictionary(), @"@book{ aaker:1912,
+                                                                                author = { tes~est }
+                                                                            }");
+
+            Assert.Throws<ArgumentOutOfRangeException>(() => tokenizer.GetPreviousCharacters(10));
+
+            tokenizer.NextToken();
+            tokenizer.NextToken();
+            tokenizer.NextToken();
+            tokenizer.NextToken();
+            tokenizer.NextToken();
+            AbstractToken token = tokenizer.NextToken();
+
+            Assert.AreEqual("   author ", tokenizer.GetPreviousCharacters(10));
         }
     }
 }

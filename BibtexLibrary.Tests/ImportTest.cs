@@ -97,5 +97,15 @@ namespace BibtexImporter.Tests
 
             Assert.AreEqual(3, file.Entries.Count);
         }
+
+        [Test]
+        public void TestReferencesFile()
+        {
+            string fileContent = File.ReadAllText("Test Files\\References.bib");
+
+            BibtexFile file = BibtexLibrary.BibtexImporter.FromString(fileContent);
+
+            Assert.AreEqual(1, file.Entries.Count);
+        }
     }
 }

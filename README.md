@@ -8,6 +8,7 @@ A .Net library for working with bibtex files. Contains custom parser for reading
 ### Build status
 
 master: [![Build status](https://ci.appveyor.com/api/projects/status/25texnbx5r6g4wi1/branch/master?svg=true)](https://ci.appveyor.com/project/MaikelH/bibtexlibrary/branch/master)
+
 release:[![Build status](https://ci.appveyor.com/api/projects/status/3elfat52waky5yah/branch/release?svg=true)](https://ci.appveyor.com/project/MaikelH/bibtexlibrary-flgmq/branch/release)
 
 

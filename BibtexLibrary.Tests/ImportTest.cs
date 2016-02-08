@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using BibtexLibrary;
 using BibtexLibrary.Parser.Nodes;
@@ -85,6 +86,16 @@ namespace BibtexImporter.Tests
             Assert.AreEqual("Author 1, Author 2", tags["author"]);
             Assert.AreEqual("this text should be in double quotes {\"}bio-tech{\"}", tags["title"]);
             Assert.AreEqual("This abstract has comma{,} and double quotes syntax {\"}bio-tech{\"} how can this be fixed", tags["abstract"]);
+        }
+
+        [Test]
+        public void TestFuzzyMiningFile()
+        {
+            string fileContent = File.ReadAllText("Test Files\\Fuzzy Mining.bib");
+
+            BibtexFile file = BibtexLibrary.BibtexImporter.FromString(fileContent);
+
+            Assert.AreEqual(3, file.Entries.Count);
         }
     }
 }

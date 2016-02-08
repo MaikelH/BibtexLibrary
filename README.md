@@ -1,6 +1,10 @@
 ## BibtexLibrary
 A .Net library for working with bibtex files. Contains custom parser for reading bibtex files.
 
+### Prerequisites
+
+- .NET framework 4 or higher
+
 ### Build status
 
 master: [![Build status](https://ci.appveyor.com/api/projects/status/25texnbx5r6g4wi1/branch/master?svg=true)](https://ci.appveyor.com/project/MaikelH/bibtexlibrary/branch/master)

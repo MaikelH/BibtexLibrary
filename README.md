@@ -44,8 +44,9 @@ David A. Aaker
 The grammar that is used by the parser is as follows. It is not in perfect EBNF, but it should be usable.
 
 ```
-BibtexFile 		= 	{ ([junk] @ entry) }
-entry 			=	type openingbrace key comma {(tag[comma])} closingbrace 
+BibtexFile 		= 	{ ([junk] @ (stringDef|entry) }
+entry 			=	type openingbrace key comma {(tag[comma])} closingbrace
+stringDef       =   [S|s]tring openingbrace tag closingbrace
 tag				= 	text "=" valuestart text valuestop
 
 
@@ -59,6 +60,6 @@ comma 			=	","
 openingbrace	=	"{"
 closingbrace	=	"}"
 valuequote      =   """
-text			= 	{ ([A-z0-9:.\s-()/\?&\\] | Comma) }
+text			= 	{ ([~'A-z0-9:.\s-()/\?&\\] | Comma) }
 junk			=   .*
 ```

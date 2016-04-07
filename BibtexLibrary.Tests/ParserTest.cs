@@ -197,5 +197,21 @@ namespace BibtexImporter.Tests
             Assert.AreEqual("aaker:1912", file.Entries.First().Key);
             Assert.AreEqual("book", file.Entries.First().Type);
         }
+
+        [Test]
+        public void ParseUnstartedTagValuesTest()
+        {
+            Tokenizer tokenizer = new Tokenizer(new ExpressionDictionary(), @"
+                                                                            @book{ aaker:1912,
+                                                                                year = 1234
+                                                                            }");
+            BibtexParser parser = new BibtexParser(tokenizer);
+            BibtexFile file = parser.Parse();
+
+            Assert.AreEqual(1, file.Entries.Count);
+            Assert.AreEqual("aaker:1912", file.Entries.First().Key);
+            Assert.AreEqual("book", file.Entries.First().Type);
+            Assert.AreEqual("1234", file.Entries.First().Tags["year"]);
+        }
     }
 }

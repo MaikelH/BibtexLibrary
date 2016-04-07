@@ -47,7 +47,7 @@ The grammar that is used by the parser is as follows. It is not in perfect EBNF,
 BibtexFile 		= 	{ ([junk] @ (stringDef|entry) }
 entry 			=	type openingbrace key comma {(tag[comma])} closingbrace
 stringDef       =   [S|s]tring openingbrace tag closingbrace
-tag				= 	text "=" valuestart text valuestop
+tag				= 	text "=" (valuestart text valuestop) | text
 
 
 type			=	text

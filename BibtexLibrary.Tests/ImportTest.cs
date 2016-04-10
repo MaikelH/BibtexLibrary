@@ -126,7 +126,7 @@ namespace BibtexImporter.Tests
 
             BibtexFile file = BibtexLibrary.BibtexImporter.FromString(fileContent);
 
-            Assert.AreEqual(2, file.Entries.Count);
+            Assert.AreEqual(3, file.Entries.Count);
         }
 
         /**

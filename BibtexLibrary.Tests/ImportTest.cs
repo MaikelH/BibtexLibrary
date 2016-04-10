@@ -107,6 +107,16 @@ namespace BibtexImporter.Tests
 
             Assert.AreEqual(1, file.Entries.Count);
         }
+
+        [Test]
+        public void TestFileWithComments()
+        {
+            string fileContent = File.ReadAllText("Test Files\\comments.bib");
+
+            BibtexFile file = BibtexLibrary.BibtexImporter.FromString(fileContent);
+
+            Assert.AreEqual(1, file.Entries.Count);
+        }
             
         /**
         [Test]

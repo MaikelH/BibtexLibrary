@@ -13,6 +13,7 @@ namespace BibtexLibrary.Tokenizer
 
         private void Init()
         {
+            Add(typeof(Comment), "^(\\s)?\\%(.*)$");
             Add(typeof(At), "^(\\s)*@");
             Add(typeof(Preamble), "(\\s)*Preamble");
             Add(typeof(OpeningBrace), "^(\\s)*{");

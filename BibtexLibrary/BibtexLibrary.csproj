@@ -57,6 +57,7 @@
     <Compile Include="Tokens\At.cs" />
     <Compile Include="Tokens\ClosingBrace.cs" />
     <Compile Include="Tokens\Comma.cs" />
+    <Compile Include="Tokens\Comment.cs" />
     <Compile Include="Tokens\Equals.cs" />
     <Compile Include="Tokens\NewLine.cs" />
     <Compile Include="Tokens\OpeningBrace.cs" />

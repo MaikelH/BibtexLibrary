@@ -13,13 +13,14 @@ namespace BibtexLibrary.Tokenizer
 
         private void Init()
         {
+            Add(typeof(Comment), "^(\\s)?\\%(.*)$");
             Add(typeof(At), "^(\\s)*@");
             Add(typeof(Preamble), "(\\s)*Preamble");
             Add(typeof(OpeningBrace), "^(\\s)*{");
             Add(typeof(ClosingBrace), "^(\\s)*}");
             Add(typeof(Equals), "^\\s*=");
             Add(typeof(ValueQuote), "^(\\s)*\"");
-            Add(typeof(Text), "^\\s*[\\w\\d:\\.\\s-;(\\)/\\?&\\?&\\\\]+");
+            Add(typeof(Text), "^\\s*['~\\*\\[\\]\\+%|<>#\\w\\d:\\.\\s-;(\\)/\\?&\\?&\\\\]+");
             Add(typeof(Comma), "^\\s*,");
         }
     }

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using BibtexLibrary;
 using BibtexLibrary.Parser.Nodes;
@@ -86,5 +87,58 @@ namespace BibtexImporter.Tests
             Assert.AreEqual("this text should be in double quotes {\"}bio-tech{\"}", tags["title"]);
             Assert.AreEqual("This abstract has comma{,} and double quotes syntax {\"}bio-tech{\"} how can this be fixed", tags["abstract"]);
         }
+
+        [Test]
+        public void TestFuzzyMiningFile()
+        {
+            string fileContent = File.ReadAllText("Test Files\\Fuzzy Mining.bib");
+
+            BibtexFile file = BibtexLibrary.BibtexImporter.FromString(fileContent);
+
+            Assert.AreEqual(3, file.Entries.Count);
+        }
+
+        [Test]
+        public void TestReferencesFile()
+        {
+            string fileContent = File.ReadAllText("Test Files\\References.bib");
+
+            BibtexFile file = BibtexLibrary.BibtexImporter.FromString(fileContent);
+
+            Assert.AreEqual(1, file.Entries.Count);
+        }
+
+        [Test]
+        public void TestFileWithComments()
+        {
+            string fileContent = File.ReadAllText("Test Files\\comments.bib");
+
+            BibtexFile file = BibtexLibrary.BibtexImporter.FromString(fileContent);
+
+            Assert.AreEqual(1, file.Entries.Count);
+        }
+
+
+        [Test]
+        public void TestSpecialCharacters()
+        {
+            string fileContent = File.ReadAllText("Test Files\\special-characters.bib");
+
+            BibtexFile file = BibtexLibrary.BibtexImporter.FromString(fileContent);
+
+            Assert.AreEqual(5, file.Entries.Count);
+        }
+
+        /**
+        [Test]
+        public void TestBiblatexExamplesFile()
+        {
+            string fileContent = File.ReadAllText("Test Files\\biblatex-examples.bib");
+
+            BibtexFile file = BibtexLibrary.BibtexImporter.FromString(fileContent);
+
+            Assert.AreEqual(1, file.Entries.Count);
+        }
+        */
     }
 }

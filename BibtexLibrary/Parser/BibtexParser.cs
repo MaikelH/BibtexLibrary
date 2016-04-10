@@ -72,7 +72,7 @@ namespace BibtexLibrary.Parser
             entry.Type = Text(tokenizer);
             OpeningBrace(tokenizer);
 
-            if (entry.Type != "String")
+            if (!entry.Type.Equals("String", StringComparison.OrdinalIgnoreCase))
             {
                 entry.Key = Text(tokenizer);
                 Comma(tokenizer);
@@ -93,7 +93,7 @@ namespace BibtexLibrary.Parser
                 return token.GetValue();
             }
 
-            throw new ParseException("Expected type Text but found: " + token.GetType());
+            throw new ParseException("Expected type Text but found: " + token.GetType() + " after " + tokenizer.GetPreviousCharacters(25));
         }
 
         private void OpeningBrace(Tokenizer.Tokenizer tokenizer)
@@ -105,7 +105,7 @@ namespace BibtexLibrary.Parser
                 return;
             }
 
-            throw new ParseException("Expected type OpeningBrace but found: " + token.GetType());    
+            throw new ParseException("Expected type OpeningBrace but found: " + token.GetType() + " after " + tokenizer.GetPreviousCharacters(25));    
         }
 
         private void ClosingBrace(Tokenizer.Tokenizer tokenizer)
@@ -117,7 +117,7 @@ namespace BibtexLibrary.Parser
                 return;
             }
 
-            throw new ParseException("Expected type ClosingBrace but found: " + token.GetType());
+            throw new ParseException("Expected type ClosingBrace but found: " + token.GetType() + " after " + tokenizer.GetPreviousCharacters(25));
         }
 
         private void Comma(Tokenizer.Tokenizer tokenizer, Boolean optional = false)
@@ -135,7 +135,7 @@ namespace BibtexLibrary.Parser
                 return;
             }
 
-            throw new ParseException("Expected type Comma but found: " + token.GetType());
+            throw new ParseException("Expected type Comma but found: " + token.GetType() + " after " + tokenizer.GetPreviousCharacters(25));
         }
 
         /// <summary>
@@ -233,7 +233,7 @@ namespace BibtexLibrary.Parser
                 return;
             }
 
-            throw new ParseException("Expected type Equals but found: " + token.GetType());
+            throw new ParseException("Expected type Equals but found: " + token.GetType() + " after " + tokenizer.GetPreviousCharacters(25));
         }
 
         private AbstractToken ValueStart(Tokenizer.Tokenizer tokenizer)
@@ -245,7 +245,7 @@ namespace BibtexLibrary.Parser
                 return token;
             }
 
-            throw new ParseException("Expected type Openingbrace or ValueQuote but found: " + token.GetType());    
+            throw new ParseException("Expected type Openingbrace or ValueQuote but found: " + token.GetType() + " after " + tokenizer.GetPreviousCharacters(25));    
         }
 
         private AbstractToken ValueStop(Tokenizer.Tokenizer tokenizer)
@@ -257,7 +257,7 @@ namespace BibtexLibrary.Parser
                 return token;
             }
 
-            throw new ParseException("Expected type ClosingBrace or ValueQuote but found: " + token.GetType());
+            throw new ParseException("Expected type ClosingBrace or ValueQuote but found: " + token.GetType() + " after " + tokenizer.GetPreviousCharacters(25));
         }
 
         private void NewLine(Tokenizer.Tokenizer tokenizer, Boolean optional = false)
@@ -275,7 +275,7 @@ namespace BibtexLibrary.Parser
                 return;
             }
 
-            throw new ParseException("Expected type Comma but found: " + token.GetType());
+            throw new ParseException("Expected type Comma but found: " + token.GetType() + " after " + tokenizer.GetPreviousCharacters(25));
         }
     }
 }

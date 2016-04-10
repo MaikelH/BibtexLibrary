@@ -1,9 +1,14 @@
 ## BibtexLibrary
 A .Net library for working with bibtex files. Contains custom parser for reading bibtex files.
 
+### Prerequisites
+
+- .NET framework 4 or higher
+
 ### Build status
 
 master: [![Build status](https://ci.appveyor.com/api/projects/status/25texnbx5r6g4wi1/branch/master?svg=true)](https://ci.appveyor.com/project/MaikelH/bibtexlibrary/branch/master)
+
 release:[![Build status](https://ci.appveyor.com/api/projects/status/3elfat52waky5yah/branch/release?svg=true)](https://ci.appveyor.com/project/MaikelH/bibtexlibrary-flgmq/branch/release)
 
 
@@ -39,9 +44,10 @@ David A. Aaker
 The grammar that is used by the parser is as follows. It is not in perfect EBNF, but it should be usable.
 
 ```
-BibtexFile 		= 	{ ([junk] @ entry) }
-entry 			=	type openingbrace key comma {(tag[comma])} closingbrace 
-tag				= 	text "=" valuestart text valuestop
+BibtexFile 		= 	{ ([junk] @ (stringDef|entry) }
+entry 			=	type openingbrace key comma {(tag[comma])} closingbrace
+stringDef       =   [S|s]tring openingbrace tag closingbrace
+tag				= 	text "=" (valuestart text valuestop) | text
 
 
 type			=	text
@@ -54,6 +60,6 @@ comma 			=	","
 openingbrace	=	"{"
 closingbrace	=	"}"
 valuequote      =   """
-text			= 	{ ([A-z0-9:.\s-()/\?&\\] | Comma) }
+text			= 	{ ([~'A-z0-9:.\s-()/\?&\\] | Comma) }
 junk			=   .*
 ```

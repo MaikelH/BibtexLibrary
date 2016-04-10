@@ -9,8 +9,9 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>BibtexLibrary</RootNamespace>
     <AssemblyName>BibtexLibrary</AssemblyName>
-    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
+    <TargetFrameworkProfile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -56,6 +57,7 @@
     <Compile Include="Tokens\At.cs" />
     <Compile Include="Tokens\ClosingBrace.cs" />
     <Compile Include="Tokens\Comma.cs" />
+    <Compile Include="Tokens\Comment.cs" />
     <Compile Include="Tokens\Equals.cs" />
     <Compile Include="Tokens\NewLine.cs" />
     <Compile Include="Tokens\OpeningBrace.cs" />

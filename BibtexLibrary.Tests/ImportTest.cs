@@ -117,7 +117,18 @@ namespace BibtexImporter.Tests
 
             Assert.AreEqual(1, file.Entries.Count);
         }
-            
+
+
+        [Test]
+        public void TestSpecialCharacters()
+        {
+            string fileContent = File.ReadAllText("Test Files\\special-characters.bib");
+
+            BibtexFile file = BibtexLibrary.BibtexImporter.FromString(fileContent);
+
+            Assert.AreEqual(2, file.Entries.Count);
+        }
+
         /**
         [Test]
         public void TestBiblatexExamplesFile()

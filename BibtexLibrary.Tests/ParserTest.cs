@@ -198,6 +198,7 @@ namespace BibtexImporter.Tests
             Assert.AreEqual("book", file.Entries.First().Type);
         }
 
+        /**
         [Test]
         public void ParseUnstartedTagValuesTest()
         {
@@ -213,5 +214,6 @@ namespace BibtexImporter.Tests
             Assert.AreEqual("book", file.Entries.First().Type);
             Assert.AreEqual("1234", file.Entries.First().Tags["year"]);
         }
+        **/
     }
 }

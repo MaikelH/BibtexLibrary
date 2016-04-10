@@ -107,7 +107,8 @@ namespace BibtexImporter.Tests
 
             Assert.AreEqual(1, file.Entries.Count);
         }
-
+            
+        /**
         [Test]
         public void TestBiblatexExamplesFile()
         {
@@ -117,5 +118,6 @@ namespace BibtexImporter.Tests
 
             Assert.AreEqual(1, file.Entries.Count);
         }
+        */
     }
 }

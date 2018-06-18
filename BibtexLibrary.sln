@@ -1,11 +1,13 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 2013
-VisualStudioVersion = 12.0.21005.1
+# Visual Studio 15
+VisualStudioVersion = 15.0.27703.2026
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BibtexLibrary", "BibtexLibrary\BibtexLibrary.csproj", "{BF36652A-A0D7-4877-8AE0-B3E8362019C1}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BibtexLibrary.Tests", "BibtexLibrary.Tests\BibtexLibrary.Tests.csproj", "{5ACEB9AA-F461-4918-8CA9-12156446B0B2}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BibtexLibrary.Standard", "BibtexLibrary.Standard\BibtexLibrary.Standard.csproj", "{4071ADF7-1703-4BE2-A0FB-42B11DD88B5A}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -21,8 +23,15 @@ Global
 		{5ACEB9AA-F461-4918-8CA9-12156446B0B2}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{5ACEB9AA-F461-4918-8CA9-12156446B0B2}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{5ACEB9AA-F461-4918-8CA9-12156446B0B2}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4071ADF7-1703-4BE2-A0FB-42B11DD88B5A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4071ADF7-1703-4BE2-A0FB-42B11DD88B5A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4071ADF7-1703-4BE2-A0FB-42B11DD88B5A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4071ADF7-1703-4BE2-A0FB-42B11DD88B5A}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {EC420422-CBDC-43B2-B86F-D2C4F9419E90}
 	EndGlobalSection
 EndGlobal

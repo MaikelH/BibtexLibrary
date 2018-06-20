@@ -2,6 +2,9 @@
 
 namespace BibtexLibrary.Tokens
 {
+    /// <summary>
+    /// Base class for tokens
+    /// </summary>
     public class AbstractToken
     {
         public AbstractToken(String value)
@@ -25,7 +28,7 @@ namespace BibtexLibrary.Tokens
         {
             unchecked
             {
-                return ((Value != null ? Value.GetHashCode() : 0)*397) ^ _position;
+                return ((Value != null ? Value.GetHashCode() : 0) * 397) ^ _position;
             }
         }
 
@@ -49,7 +52,7 @@ namespace BibtexLibrary.Tokens
             if (ReferenceEquals(null, obj)) return false;
             if (ReferenceEquals(this, obj)) return true;
             if (obj.GetType() != GetType()) return false;
-            return Equals((AbstractToken) obj);
+            return Equals((AbstractToken)obj);
         }
     }
 }

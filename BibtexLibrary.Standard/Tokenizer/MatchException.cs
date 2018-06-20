@@ -16,7 +16,10 @@ namespace LexicalAnalyzer
 
         public override string Message
         {
-            get { return "Could not match character: " + _character + " at position " + _position; }
+            get
+            {
+                return "BibTexLibrary: Could not match character: " + _character + " at position " + _position;
+            }
         }
     }
 }

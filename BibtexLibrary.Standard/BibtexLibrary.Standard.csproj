@@ -5,7 +5,7 @@
     <ApplicationIcon>imbSCI - Copy.ico</ApplicationIcon>
     <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
     <PackageId>BibtexLibrary.Standard</PackageId>
-    <Version>1.4.4</Version>
+    <Version>1.4.6.2</Version>
     <Title>BibtexLibrary .NET Standard</Title>
     <Summary></Summary>
     <PackageIconUrl>http://doc.veles.rs/imbSCI.ico</PackageIconUrl>
@@ -23,11 +23,13 @@ Original repository: https://github.com/MaikelH/BibtexLibrary</Description>
     <RepositoryType>GitHub</RepositoryType>
     <Authors>Maikel Hofman, Goran Grubić</Authors>
     <Company>imbVeles</Company>
-    <AssemblyVersion>1.4.4.0</AssemblyVersion>
-    <FileVersion>1.4.4.0</FileVersion>
+    <AssemblyVersion>1.4.6.2</AssemblyVersion>
+    <FileVersion>1.4.6.2</FileVersion>
     <Product>BibtexLibrary.Standard</Product>
     <PackageRequireLicenseAcceptance>False</PackageRequireLicenseAcceptance>
     <RootNamespace>BibtexLibrary</RootNamespace>
+    <SignAssembly>true</SignAssembly>
+    <AssemblyOriginatorKeyFile>key.snk</AssemblyOriginatorKeyFile>
   </PropertyGroup>
 
   <!-- .NET Standard 2.0 references, compilation flags and build options -->
@@ -45,6 +47,10 @@ Original repository: https://github.com/MaikelH/BibtexLibrary</Description>
 
   <PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Debug|netstandard2.0|AnyCPU'">
     <DocumentationFile>bin\Debug\netstandard2.0\BibtexLibrary.Standard.xml</DocumentationFile>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Release|netstandard2.0|AnyCPU'">
+    <DocumentationFile>bin\Release\netstandard2.0\BibtexLibrary.Standard.xml</DocumentationFile>
   </PropertyGroup>
 
 

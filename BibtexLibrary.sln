@@ -7,7 +7,9 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BibtexLibrary", "BibtexLibr
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BibtexLibrary.Tests", "BibtexLibrary.Tests\BibtexLibrary.Tests.csproj", "{5ACEB9AA-F461-4918-8CA9-12156446B0B2}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BibtexLibrary.Standard", "BibtexLibrary.Standard\BibtexLibrary.Standard.csproj", "{4071ADF7-1703-4BE2-A0FB-42B11DD88B5A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BibtexLibrary.Standard", "BibtexLibrary.Standard\BibtexLibrary.Standard.csproj", "{4071ADF7-1703-4BE2-A0FB-42B11DD88B5A}"
+EndProject
+Project("{7CF6DF6D-3B04-46F8-A40B-537D21BCA0B4}") = "BibtexLibrary.Documentation", "BibtexLibrary.Documentation\BibtexLibrary.Documentation.shfbproj", "{617B9073-B902-49A2-B28D-4D790595D7CD}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -27,6 +29,10 @@ Global
 		{4071ADF7-1703-4BE2-A0FB-42B11DD88B5A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{4071ADF7-1703-4BE2-A0FB-42B11DD88B5A}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{4071ADF7-1703-4BE2-A0FB-42B11DD88B5A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{617B9073-B902-49A2-B28D-4D790595D7CD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{617B9073-B902-49A2-B28D-4D790595D7CD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{617B9073-B902-49A2-B28D-4D790595D7CD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{617B9073-B902-49A2-B28D-4D790595D7CD}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

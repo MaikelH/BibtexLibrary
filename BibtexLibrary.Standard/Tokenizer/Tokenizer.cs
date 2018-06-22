@@ -1,9 +1,9 @@
-﻿using System;
+﻿using BibtexLibrary.Tokens;
+using LexicalAnalyzer;
+using System;
 using System.Collections.Generic;
 using System.Globalization;
 using System.Text.RegularExpressions;
-using BibtexLibrary.Tokens;
-using LexicalAnalyzer;
 
 namespace BibtexLibrary.Tokenizer
 {
@@ -27,7 +27,7 @@ namespace BibtexLibrary.Tokenizer
             {
                 Match match;
 
-                if (pair.Key == typeof (Comment))
+                if (pair.Key == typeof(Comment))
                 {
                     match = Regex.Match(_input.Substring(_counter), pair.Value, RegexOptions.Multiline);
                 }
@@ -43,18 +43,18 @@ namespace BibtexLibrary.Tokenizer
                 }
                 _counter += match.Value.Length;
 
-                if (!pair.Key.IsSubclassOf(typeof (AbstractToken)))
+                if (!pair.Key.IsSubclassOf(typeof(AbstractToken)))
                 {
                     continue;
                 }
-                    
+
                 // Create new instance of the specified type with the found value as parameter
                 AbstractToken token = (AbstractToken)Activator.CreateInstance(pair.Key, new object[] { match.Value, _counter - match.Value.Length }, null);
 
                 return token;
             }
 
-            throw new MatchException(_input[_counter].ToString(CultureInfo.InvariantCulture), _counter);
+            throw new MatchException(_input, _input[_counter].ToString(CultureInfo.InvariantCulture), _counter);
         }
 
         public AbstractToken Peek()
@@ -79,7 +79,7 @@ namespace BibtexLibrary.Tokenizer
                 }
             }
 
-            throw new MatchException(_input[_counter].ToString(CultureInfo.InvariantCulture), _counter);     
+            throw new MatchException(_input, _input[_counter].ToString(CultureInfo.InvariantCulture), _counter);
         }
 
         /// <summary>

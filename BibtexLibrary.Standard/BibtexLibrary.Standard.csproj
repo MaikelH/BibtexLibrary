@@ -4,9 +4,9 @@
     <TargetFrameworks>netstandard2.0;net45;net40</TargetFrameworks>
     <ApplicationIcon>imbSCI - Copy.ico</ApplicationIcon>
     <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
-    <PackageId>BibtexLibrary.Standard</PackageId>
-    <Version>1.4.6.2</Version>
-    <Title>BibtexLibrary .NET Standard</Title>
+    <PackageId>imbSCI.BibtexLibrary.Standard</PackageId>
+    <Version>1.5.28</Version>
+    <Title>BibtexLibrary .NET Standard - for imbSCI</Title>
     <Summary></Summary>
     <PackageIconUrl>http://doc.veles.rs/imbSCI.ico</PackageIconUrl>
     <PackageProjectUrl>http://blog.veles.rs/</PackageProjectUrl>
@@ -18,14 +18,14 @@ Original repository: https://github.com/MaikelH/BibtexLibrary</Description>
     <NeutralLanguage>en-US</NeutralLanguage>
     <PackageReleaseNotes>Targets: .NET 4.0*, .NET 4.5 and .NET Core 2.0 i.e ready for use in cross-platform application development. 
 </PackageReleaseNotes>
-    <PackageTags>Bibtex</PackageTags>
+    <PackageTags>BibTex, Excel</PackageTags>
     <RepositoryUrl>https://github.com/gorangrubic/BibtexLibrary</RepositoryUrl>
     <RepositoryType>GitHub</RepositoryType>
     <Authors>Maikel Hofman, Goran Grubić</Authors>
     <Company>imbVeles</Company>
-    <AssemblyVersion>1.4.6.2</AssemblyVersion>
-    <FileVersion>1.4.6.2</FileVersion>
-    <Product>BibtexLibrary.Standard</Product>
+    <AssemblyVersion>1.5.1.2</AssemblyVersion>
+    <FileVersion>1.5.1.2</FileVersion>
+    <Product>imbSCI.BibtexLibrary.Standard</Product>
     <PackageRequireLicenseAcceptance>False</PackageRequireLicenseAcceptance>
     <RootNamespace>BibtexLibrary</RootNamespace>
     <SignAssembly>true</SignAssembly>
@@ -45,15 +45,36 @@ Original repository: https://github.com/MaikelH/BibtexLibrary</Description>
     <DefineConstants>NET45;NETFULL</DefineConstants>
   </PropertyGroup>
 
-  <PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Debug|netstandard2.0|AnyCPU'">
-    <DocumentationFile>bin\Debug\netstandard2.0\BibtexLibrary.Standard.xml</DocumentationFile>
+  <PropertyGroup>
+    <DocumentationFile>$(OutputPath)$(PackageId).xml</DocumentationFile>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Release|netstandard2.0|AnyCPU'">
-    <DocumentationFile>bin\Release\netstandard2.0\BibtexLibrary.Standard.xml</DocumentationFile>
+    <ShouldCreateLogs>True</ShouldCreateLogs>
+    <AdvancedSettingsExpanded>True</AdvancedSettingsExpanded>
+    <UpdateAssemblyVersion>False</UpdateAssemblyVersion>
+    <UpdateAssemblyFileVersion>False</UpdateAssemblyFileVersion>
+    <UpdateAssemblyInfoVersion>False</UpdateAssemblyInfoVersion>
+    <UpdatePackageVersion>True</UpdatePackageVersion>
+    <AssemblyInfoVersionType>SettingsVersion</AssemblyInfoVersionType>
+    <InheritWinAppVersionFrom>None</InheritWinAppVersionFrom>
+    <WarningLevel>0</WarningLevel>
   </PropertyGroup>
 
+  <PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Debug|netstandard2.0|AnyCPU'">
+    <ShouldCreateLogs>True</ShouldCreateLogs>
+    <AdvancedSettingsExpanded>True</AdvancedSettingsExpanded>
+    <UpdateAssemblyVersion>False</UpdateAssemblyVersion>
+    <UpdateAssemblyFileVersion>False</UpdateAssemblyFileVersion>
+    <UpdateAssemblyInfoVersion>False</UpdateAssemblyInfoVersion>
+    <UpdatePackageVersion>True</UpdatePackageVersion>
+    <AssemblyInfoVersionType>SettingsVersion</AssemblyInfoVersionType>
+    <InheritWinAppVersionFrom>None</InheritWinAppVersionFrom>
+  </PropertyGroup>
 
+  <Target Name="CopyPackage" AfterTargets="Pack">
+    <Copy SourceFiles="$(OutputPath)$(PackageId).$(PackageVersion).nupkg" DestinationFolder="G:\imbVelesOpenSource\LocalNuGet\imbVelesSecondGeneration\" />
+  </Target>
 
 
 </Project>

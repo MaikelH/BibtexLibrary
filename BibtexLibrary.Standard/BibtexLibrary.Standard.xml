@@ -1,0 +1,184 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>BibtexLibrary.Standard</name>
+    </assembly>
+    <members>
+        <member name="T:BibtexLibrary.BibtexEntry">
+            <summary>
+            Single entry in Bibtex file
+            </summary>
+        </member>
+        <member name="F:BibtexLibrary.BibtexEntry._tags">
+            <summary>
+            The tags
+            </summary>
+        </member>
+        <member name="P:BibtexLibrary.BibtexEntry.Type">
+            <summary>
+            Gets or sets the type.
+            </summary>
+            <value>
+            The type.
+            </value>
+        </member>
+        <member name="P:BibtexLibrary.BibtexEntry.Key">
+            <summary>
+            Gets or sets the key.
+            </summary>
+            <value>
+            The key.
+            </value>
+        </member>
+        <member name="P:BibtexLibrary.BibtexEntry.Tags">
+            <summary>
+            Gets or sets the tags.
+            </summary>
+            <value>
+            The tags.
+            </value>
+        </member>
+        <member name="T:BibtexLibrary.BibtexFile">
+            <summary>
+            Collection of Bibtex entries
+            </summary>
+        </member>
+        <member name="P:BibtexLibrary.BibtexFile.StringDefinitions">
+            <summary>
+            Gets or sets the string definitions.
+            </summary>
+            <value>
+            The string definitions.
+            </value>
+        </member>
+        <member name="P:BibtexLibrary.BibtexFile.Preamble">
+            <summary>
+            Gets or sets the preamble.
+            </summary>
+            <value>
+            The preamble.
+            </value>
+        </member>
+        <member name="P:BibtexLibrary.BibtexFile.Entries">
+            <summary>
+            Gets or sets the entries.
+            </summary>
+            <value>
+            The entries.
+            </value>
+        </member>
+        <member name="T:BibtexLibrary.BibtexImporter">
+            <summary>
+            Parser 
+            </summary>
+        </member>
+        <member name="M:BibtexLibrary.BibtexImporter.FromString(System.String)">
+            <summary>
+            Froms the string.
+            </summary>
+            <param name="text">The text.</param>
+            <returns></returns>
+        </member>
+        <member name="M:BibtexLibrary.BibtexImporter.FromStream(System.IO.StreamReader)">
+            <summary>
+            Froms the stream.
+            </summary>
+            <param name="reader">The reader.</param>
+            <returns></returns>
+            <exception cref="T:System.NotImplementedException"></exception>
+        </member>
+        <member name="M:BibtexLibrary.Parser.BibtexParser.#ctor(BibtexLibrary.Tokenizer.Tokenizer)">
+            <summary>
+            Initializes a new instance of the <see cref="T:BibtexLibrary.Parser.BibtexParser"/> class.
+            </summary>
+            <param name="tokenizer">The tokenizer.</param>
+        </member>
+        <member name="M:BibtexLibrary.Parser.BibtexParser.Parse">
+            <summary>
+            Parses this instance.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:BibtexLibrary.Parser.BibtexParser.convertParseNode(BibtexLibrary.Parser.Nodes.ParseNode)">
+            <summary>
+            Converts the parse node.
+            </summary>
+            <param name="node">The node.</param>
+            <returns></returns>
+        </member>
+        <member name="M:BibtexLibrary.Parser.BibtexParser.ParseInput(BibtexLibrary.Tokenizer.Tokenizer)">
+            <summary>
+            Parses the input.
+            </summary>
+            <param name="tokenizer">The tokenizer.</param>
+            <returns></returns>
+        </member>
+        <member name="M:BibtexLibrary.Parser.BibtexParser.Entry(BibtexLibrary.Tokenizer.Tokenizer)">
+            <summary>
+            Entries the specified tokenizer.
+            </summary>
+            <param name="tokenizer">The tokenizer.</param>
+            <returns></returns>
+        </member>
+        <member name="M:BibtexLibrary.Parser.BibtexParser.Text(BibtexLibrary.Tokenizer.Tokenizer)">
+            <summary>
+            Texts the specified tokenizer.
+            </summary>
+            <param name="tokenizer">The tokenizer.</param>
+            <returns></returns>
+            <exception cref="T:BibtexLibrary.Parser.ParseException">Expected type Text but found: " + token.GetType() + " after " + tokenizer.GetPreviousCharacters(25)</exception>
+        </member>
+        <member name="M:BibtexLibrary.Parser.BibtexParser.OpeningBrace(BibtexLibrary.Tokenizer.Tokenizer)">
+            <summary>
+            Openings the brace.
+            </summary>
+            <param name="tokenizer">The tokenizer.</param>
+            <exception cref="T:BibtexLibrary.Parser.ParseException">Expected type OpeningBrace but found: " + token.GetType() + " after " + tokenizer.GetPreviousCharacters(25)</exception>
+        </member>
+        <member name="M:BibtexLibrary.Parser.BibtexParser.ClosingBrace(BibtexLibrary.Tokenizer.Tokenizer)">
+            <summary>
+            Closings the brace.
+            </summary>
+            <param name="tokenizer">The tokenizer.</param>
+            <exception cref="T:BibtexLibrary.Parser.ParseException">Expected type ClosingBrace but found: " + token.GetType() + " after " + tokenizer.GetPreviousCharacters(25)</exception>
+        </member>
+        <member name="M:BibtexLibrary.Parser.BibtexParser.Comma(BibtexLibrary.Tokenizer.Tokenizer,System.Boolean)">
+            <summary>
+            Commas the specified tokenizer.
+            </summary>
+            <param name="tokenizer">The tokenizer.</param>
+            <param name="optional">if set to <c>true</c> [optional].</param>
+            <exception cref="T:BibtexLibrary.Parser.ParseException">Expected type Comma but found: " + token.GetType() + " after " + tokenizer.GetPreviousCharacters(25)</exception>
+        </member>
+        <member name="M:BibtexLibrary.Parser.BibtexParser.Tags(BibtexLibrary.Tokenizer.Tokenizer)">
+            <summary>
+            Retrieves the tag values from the input.
+            </summary>
+            <param name="tokenizer">The tokenizer.</param>
+            <returns></returns>
+        </member>
+        <member name="M:BibtexLibrary.Tokenizer.Tokenizer.GetAllTokens">
+            <summary>
+            Return all the tokens in the inputstring.
+            </summary>
+            <returns>List of tokens</returns>
+        </member>
+        <member name="P:BibtexLibrary.Tokenizer.Tokenizer.EndOfInput">
+            <summary>
+            Checks whether the scanner is at the end of the input.
+            </summary>
+        </member>
+        <member name="M:BibtexLibrary.Tokenizer.Tokenizer.GetPreviousCharacters(System.Int32)">
+            <summary>
+            Returns the previous n characters. 
+            </summary>
+            <param name="amount"></param>
+            <returns>Previous characters in the tokenizer</returns>
+        </member>
+        <member name="T:BibtexLibrary.Tokens.AbstractToken">
+            <summary>
+            Base class for tokens
+            </summary>
+        </member>
+    </members>
+</doc>
